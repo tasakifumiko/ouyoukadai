@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @others = User.where.not(id: current_user.id)
     @book = Book.new
     
   end

@@ -58,6 +58,7 @@
    </tbody>
   </table>
   
+  <h4>7日間分の投稿数</h4>
   <table class="table">
    <thead>
     <tr>
@@ -66,19 +67,19 @@
      <th>4日前</th>
      <th>3日前</th>
      <th>２日前</th>
-     <th>昨日</th>
+     <th>1日前日</th>
      <th>今日</th>
     </tr>
    </thead>
    <tbody>
     <tr>
-     <th><%= @books.created_this_week.count %></th>
-     <th><%= @books.created_5days.count %></th>
-     <th><%= @books.created_4days.count %></th>
-     <th><%= @books.created_3days.count %></th>
-     <th><%= @books.created_2days.count %></th>
-     <th><%= @yesterday_book.count %></th>
-     <th><%= @today_book.count %></th>
+     　　<td><%= @books.created_6day_ago.count %></td>
+        <td><%= @books.created_5day_ago.count %></td>
+        <td><%= @books.created_4day_ago.count %></td>
+        <td><%= @books.created_3day_ago.count %></td>
+        <td><%= @books.created_2day_ago.count %></td>
+        <td><%= @books.created_yesterday.count %></td>
+        <td><%= @books.created_today.count %></td>
     </tr>
    </tbody>
   </table>
@@ -94,9 +95,18 @@
           datasets: [
             {
               label: '投稿した本の数',
-              data: [<%= @books.created_this_week.count %>, <%= @books.created_5days.count %>, <%= @books.created_4days.count %>, <%= @books.created_3days.count %>, <%= @books.created_2days.count %>, <%= @yesterday_book.count %>, <%= @today_book.count%>],
+              data: [
+                <%= @books.created_6day_ago.count %>,
+                <%= @books.created_5day_ago.count %>, 
+                <%= @books.created_4day_ago.count %>, 
+                <%= @books.created_3day_ago.count %>, 
+                <%= @books.created_2day_ago.count %>, 
+                <%= @books.created_yesterday.count %>, 
+                <%= @books.created_today.count %>
+              ],
               borderColor: "rgba(0,0,255,1)",
               backgroundColor: "rgba(0,0,0,0)"
+              
             }
           ],
         },
@@ -105,17 +115,15 @@
             display: true,
             text: '7日間の投稿数の比較'
           },
+          responsive: true,
           scales: {
-            yAxes: [{
-              ticks: {
-                suggestedMax: 10,
-                suggestedMin: 0,
-                stepSize: 1,
-                callback: function(value, index, values){
-                  return  value
-                }
-              }
-            }]
+            y:{
+              suggestedMin: 0,
+              suggestedMax: 10
+            },
+            x:{
+              stacked: true
+            },
           },
         }
       });
